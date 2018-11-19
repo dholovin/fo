@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "DhNotes": {
+    "fo": {
       "root": "",
       "sourceRoot": "src",
       "projectType": "application",
@@ -17,17 +17,16 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/DhNotes",
+            "outputPath": "dist",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "src/tsconfig.app.json",
             "assets": [
-              "src/favicon.ico",
               "src/assets"
             ],
             "styles": [
-              "src/styles.scss"
+              "src/assets/css/dh-custom.scss"
             ],
             "scripts": []
           },
@@ -61,18 +60,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "DhNotes:build"
+            "browserTarget": "fo:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "DhNotes:build:production"
+              "browserTarget": "fo:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "DhNotes:build"
+            "browserTarget": "fo:build"
           }
         },
         "test": {
@@ -83,11 +82,10 @@
             "tsConfig": "src/tsconfig.spec.json",
             "karmaConfig": "src/karma.conf.js",
             "styles": [
-              "src/styles.scss"
+              "src/assets/css/dh-custom.scss"
             ],
             "scripts": [],
             "assets": [
-              "src/favicon.ico",
               "src/assets"
             ]
           }
@@ -106,7 +104,7 @@
         }
       }
     },
-    "DhNotes-e2e": {
+    "fo-e2e": {
       "root": "e2e/",
       "projectType": "application",
       "prefix": "",
@@ -115,11 +113,11 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "DhNotes:serve"
+            "devServerTarget": "fo:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "DhNotes:serve:production"
+              "devServerTarget": "fo:serve:production"
             }
           }
         },
@@ -135,5 +133,5 @@
       }
     }
   },
-  "defaultProject": "DhNotes"
+  "defaultProject": "fo"
 }
