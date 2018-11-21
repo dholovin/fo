@@ -7,7 +7,7 @@
       "root": "",
       "sourceRoot": "src",
       "projectType": "application",
-      "prefix": "app",
+      "prefix": "fo",
       "schematics": {
         "@schematics/angular:component": {
           "styleext": "scss"
@@ -26,7 +26,9 @@
               "src/assets"
             ],
             "styles": [
-              "src/assets/css/dh-custom.scss"
+              "src/assets/css/bootstrap-grid.css",  
+              "node_modules/material-icons-font/material-icons-font.css",
+              "src/assets/css/dh-custom.scss",
             ],
             "scripts": []
           },
@@ -36,7 +38,7 @@
                 {
                   "replace": "src/environments/environment.ts",
                   "with": "src/environments/environment.prod.ts"
-                }
+                },
               ],
               "optimization": true,
               "outputHashing": "all",

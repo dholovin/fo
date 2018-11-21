@@ -13,6 +13,11 @@ import { CoreRoutingModule } from './core-routing.module';
 import { WelcomeComponent } from './components/welcome/welcome.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 
+// Angular Material Anumation module
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+// Custom Angular Material UI Components module
+import { MaterialModule } from '../material/material.module';
+
 // import { NavComponent } from './nav/nav.component';
 // import { SpinnerComponent } from './spinner/spinner.component';
 // import { SpinnerService } from './spinner/spinner.service';
@@ -21,6 +26,10 @@ import { NotFoundComponent } from './components/not-found/not-found.component';
   imports: [
     CommonModule,
     CoreRoutingModule,
+    // as per guide: https://material.angular.io/guide/getting-started 
+    // import the Angular Material modules after Angular's BrowserModule, as the import order matters for NgModules
+    BrowserAnimationsModule,    
+    MaterialModule,
   ],
   declarations: [
     WelcomeComponent,

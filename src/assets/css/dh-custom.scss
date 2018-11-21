@@ -1,1 +1,29 @@
 /* You can add global styles to this file, and also import other style files */
+@import 'variables';
+@import 'material-icons-override';
+@import "~@angular/material/prebuilt-themes/deeppurple-amber.css";
+
+html {
+    font-family: $font-stack;
+    font-size: $primary-font-size; // all 'rem' units will be based on that root element font-size value
+}
+
+body { 
+    margin: $primary-margin;
+    background-color: $primary-background-color;
+    color: $primary-color;
+}
+
+/* NAVIGATION STARTS */
+/* NAVIGATION ENDS */
+
+/* POSITIONING STARTS */
+.fo-text-center {
+    text-align: center;
+}
+/* POSITIONING ENDS */
+
+.fo-version-info {
+    font-size: 0.65rem; // ~8pt
+    float: right;
+}

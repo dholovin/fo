@@ -10,19 +10,7 @@ export class AppComponent implements OnInit {
   constructor (private loggerService: LoggerService){
   }  
 
-  public title = "fo";
-  public linkUrl;
-  private someParam = 1;
-
   ngOnInit() {
     this.loggerService.log('LoggerService in action');
-    
-    this.linkUrl = this.getUrlValueFromDb();
-  }
-
-  private getUrlValueFromDb(): string {
-    return `https://angular.io/tutorial/${this.someParam}`;
-
-    // return "https://angular.io/tutorial/{{someParam}}";
   }
 }
