@@ -1,0 +1,14 @@
+<div *ngIf="people else loading">
+  <span [ngSwitch]="viewMode">
+    <fo-people-table-view *ngSwitchDefault [people]='people'>
+
+    </fo-people-table-view>
+    <fo-people-card-view *ngSwitchCase='peopleViewMode.Card' [people]='people'>
+
+    </fo-people-card-view>
+  </span>
+</div>
+
+<ng-template #loading>
+  <div>Loading...</div>
+</ng-template>

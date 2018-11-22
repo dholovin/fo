@@ -10,8 +10,8 @@ import { SharedModule } from '../shared/shared.module';
   ],
   imports: [
     CommonModule,
-    RemindersRoutingModule,
     SharedModule,
+    RemindersRoutingModule,    
   ]
 })
 export class RemindersModule { }

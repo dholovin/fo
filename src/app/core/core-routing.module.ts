@@ -8,6 +8,7 @@ const routes: Routes = [
   { path: 'welcome', component: WelcomeComponent },
   // { path: 'admin', canActivate: [AuthGuardService], loadChildren: '../admin/admin.module#AdminModule' },
   { path: 'reminders', loadChildren: '../reminders/reminders.module#RemindersModule' }, // Lazy-loading example
+  { path: 'people', loadChildren: '../people/people.module#PeopleModule' },
   { path: '**', component: NotFoundComponent },
 ];
 
