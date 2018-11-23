@@ -7,11 +7,10 @@ import { NgModule, Optional, SkipSelf } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
-import { LoggerService } from './services/logger.service';
 import { throwIfAlreadyLoaded } from './module-import-guard';
 import { CoreRoutingModule } from './core-routing.module';
-import { WelcomeComponent } from './components/welcome/welcome.component';
-import { NotFoundComponent } from './components/not-found/not-found.component';
+import { LoggerService } from './services';
+import { WelcomeComponent, NotFoundComponent  } from './components';
 
 // Angular Material Anumation module
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';

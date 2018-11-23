@@ -7,11 +7,11 @@ export class LoggerService {
 
   constructor() { }
 
-  log(msg: string) {
+  log(msg: any) {
     console.log(msg);
   }
 
-  error(msg: string) {
+  error(msg: any) {
     console.error(msg);
   }
 }

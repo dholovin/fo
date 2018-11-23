@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { IPerson, PeopleViewMode } from '../../models';
 import { PeopleApiService } from '../../serices';
-import { LoggerService } from '../../../core/services/logger.service';
+import { LoggerService } from '../../../core/services';
 
 @Component({
   selector: 'fo-people',
@@ -19,8 +19,6 @@ export class PeopleComponent implements OnInit {
   public viewMode: PeopleViewMode = PeopleViewMode.Table;
   
   ngOnInit() {
-    this.loggerService.log(`viewMode:  ${this.viewMode.toString()}`);
-
     this.peopleApiService.GetPeople()
       .subscribe((people: IPerson[]) => {
         this.people = people;

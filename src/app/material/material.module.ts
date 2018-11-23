@@ -3,8 +3,12 @@ import {
   MatButtonModule, 
   MatCheckboxModule, 
   MatTooltipModule, 
+  MatChipsModule,
   MatRadioModule,
-  MatDividerModule
+  MatDividerModule,
+  MatInputModule,
+  MatTableModule,
+  MatSortModule,
 } from '@angular/material';
 
 @NgModule({
@@ -12,8 +16,12 @@ import {
     MatButtonModule, 
     MatCheckboxModule,
     MatTooltipModule,
+    MatChipsModule,
     MatRadioModule,
     MatDividerModule,
+    MatInputModule,
+    MatTableModule,
+    MatSortModule,
   ],
 })
 export class MaterialModule { }

@@ -13,7 +13,7 @@ export class PeopleApiService {
                 {
                     name: 'John Doe',
                     place: 'soccer',
-                    date: new Date(),
+                    note: '2 daughters. younger is Zlata and elder is Sofa. wife - Erica. Plays good. Phone xxx-xxx-xx-xx',
                     associations: [
                         { name: 'soccer' },
                         { name: 'ukraine' },
@@ -21,12 +21,12 @@ export class PeopleApiService {
                         { name: 'khmelnitskiy' },
                         { name: 'dieppe' },
                     ],
-                    note: '2 daughters. younger is Zlata and elder is Sofa. wife - Erica. Plays good. Phone xxx-xxx-xx-xx',
                 },
                 {
                     name: 'Clarisse',
                     place: 'hospital',
                     date: new Date(),
+                    note: 'first surved and helped a lot. very nice',
                     associations: [
                         { name: 'hospital' },
                         { name: 'nurse' },
@@ -34,12 +34,12 @@ export class PeopleApiService {
                         { name: 'victoria-daughter' },
                         { name: 'glasses' },
                     ],
-                    note: 'first surved and helped a lot. very nice',
                 },
                 {
                     name: 'Dave',
                     place: 'Isabella\'s birthday party',
                     date: new Date(),
+                    note: 'Dave was born in Moncton, wife ??? from Columbia, Isabella turned 3 in 2018, dog Phoenix',
                     associations: [
                         { name: 'birthday party' },
                         { name: 'daycare' },
@@ -48,12 +48,12 @@ export class PeopleApiService {
                         { name: 'dieppe' },
                         { name: 'great host' },
                     ],
-                    note: 'Dave was born in Moncton, wife ??? from Columbia, Isabella turned 3 in 2018, dog Phoenix',
                 },
                 {
                     name: 'Bob',
                     place: 'Isabella\'s birthday party',
                     date: new Date(),
+                    note: 'wife Jane, 7 years daughter (2018), works at ymca, very funny',
                     associations: [
                         { name: 'birthday party' },
                         { name: 'daycare' },
@@ -63,7 +63,6 @@ export class PeopleApiService {
                         { name: 'funny' },
                         { name: 'ymca' },
                     ],
-                    note: 'wife Jane, 7 years daughter (2018), works at ymca, very funny',
                 }
             ] as IPerson[];
 
