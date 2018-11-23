@@ -1,4 +1,4 @@
 export enum PeopleViewMode {
     Table,
-    Card,
+    Tree,
 }

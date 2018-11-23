@@ -1,11 +1,18 @@
+<mat-radio-group [(ngModel)]="viewMode">
+  <mat-radio-button [value]=PeopleViewMode.Table>View by Name</mat-radio-button>
+  <mat-radio-button [value]=PeopleViewMode.Tree>View Grouped</mat-radio-button>
+</mat-radio-group>
+
+<mat-divider></mat-divider>
+
 <div *ngIf="people else loading">
   <span [ngSwitch]="viewMode">
     <fo-people-table-view *ngSwitchDefault [people]='people'>
 
     </fo-people-table-view>
-    <fo-people-card-view *ngSwitchCase='peopleViewMode.Card' [people]='people'>
+    <fo-people-tree-view *ngSwitchCase='PeopleViewMode.Tree' [people]='people'>
 
-    </fo-people-card-view>
+    </fo-people-tree-view>
   </span>
 </div>
 

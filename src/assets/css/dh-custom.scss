@@ -1,7 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 @import 'variables';
+@import 'material-override';
 @import 'material-icons-override';
-@import "~@angular/material/prebuilt-themes/deeppurple-amber.css";
 
 html {
     font-family: $font-stack;
@@ -26,4 +26,4 @@ body {
 .fo-version-info {
     font-size: 0.65rem; // ~8pt
     float: right;
-}
+} 

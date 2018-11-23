@@ -1,5 +1,5 @@
 /* Summary: 
-   CoreModule exists to orthestrate other modules,   
+   CoreModule exists to orchestrate other modules,   
    make commonly used singleton services available for use in the many other modules
 */
 

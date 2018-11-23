@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { IPerson, PeopleViewMode } from '../../models';
 import { PeopleApiService } from '../../serices';
-import { Observable } from 'rxjs';
+import { LoggerService } from '../../../core/services/logger.service';
 
 @Component({
   selector: 'fo-people',
@@ -10,13 +10,17 @@ import { Observable } from 'rxjs';
 })
 export class PeopleComponent implements OnInit {
 
-  constructor(private peopleApiService: PeopleApiService) { }
+  constructor(
+    private loggerService: LoggerService,
+    private peopleApiService: PeopleApiService) { }
 
   public people: IPerson[];
-  public peopleViewMode = PeopleViewMode;
-  public viewMode: PeopleViewMode = PeopleViewMode.Card;
-
+  public PeopleViewMode = PeopleViewMode;
+  public viewMode: PeopleViewMode = PeopleViewMode.Table;
+  
   ngOnInit() {
+    this.loggerService.log(`viewMode:  ${this.viewMode.toString()}`);
+
     this.peopleApiService.GetPeople()
       .subscribe((people: IPerson[]) => {
         this.people = people;

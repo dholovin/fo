@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PeopleCardViewComponent } from './people-card-view.component';
+import { PeopleTreeViewComponent } from './people-tree-view.component';
 
 describe('PeopleCardViewComponent', () => {
-  let component: PeopleCardViewComponent;
-  let fixture: ComponentFixture<PeopleCardViewComponent>;
+  let component: PeopleTreeViewComponent;
+  let fixture: ComponentFixture<PeopleTreeViewComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PeopleCardViewComponent ]
+      declarations: [ PeopleTreeViewComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(PeopleCardViewComponent);
+    fixture = TestBed.createComponent(PeopleTreeViewComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

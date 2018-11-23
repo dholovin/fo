@@ -9,8 +9,10 @@ import { SharedModule } from '../shared/shared.module';
     ReminderViewComponent 
   ],
   imports: [
-    CommonModule,
-    SharedModule,
+    CommonModule,   // ngIf, ngFor, etc...
+    // FormsModule,    // ngModel for templates-driven forms, 
+    // MaterialModule, // Angular Material Design components
+    SharedModule,   // custom shared components
     RemindersRoutingModule,    
   ]
 })
