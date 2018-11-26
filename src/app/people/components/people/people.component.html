@@ -7,10 +7,10 @@
 
 <div *ngIf="people else loading">
   <span [ngSwitch]="viewMode">
-    <fo-people-table-view *ngSwitchDefault [people]='people'>
+    <fo-people-table-view *ngSwitchDefault [people]="people">
 
     </fo-people-table-view>
-    <fo-people-tree-view *ngSwitchCase='PeopleViewMode.Tree' [people]='people'>
+    <fo-people-tree-view *ngSwitchCase="PeopleViewMode.Tree" [people]="people">
 
     </fo-people-tree-view>
   </span>

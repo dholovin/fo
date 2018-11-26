@@ -6,13 +6,15 @@
   <mat-tree [dataSource]="dataSource" [treeControl]="treeControl" class="mat-elevation-z8">
     <mat-tree-node *matTreeNodeDef="let node" matTreeNodeToggle matTreeNodePadding>
       <button mat-icon-button disabled></button>
-      met <strong>&nbsp;{{node.name}}&nbsp;</strong> at <strong>&nbsp;{{node.place}}&nbsp;</strong>
+      <a routerLink="{{node.id}}">
+        <span>met <strong>&nbsp;{{node.name}}&nbsp;</strong> at <strong>&nbsp;{{node.place}}&nbsp;</strong></span>
+      </a>
     </mat-tree-node>
 
     <mat-tree-node *matTreeNodeDef="let node;when: hasChild" matTreeNodePadding>
       <button mat-icon-button matTreeNodeToggle>
         <mat-icon class="mat-icon-rtl-mirror">
-          {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+          {{treeControl.isExpanded(node) ? "expand_more" : "chevron_right"}}
         </mat-icon>
       </button>
       {{node.association}} :

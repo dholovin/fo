@@ -6,12 +6,14 @@ import { PeopleRoutingModule } from './people-routing.module';
 import { PeopleComponent, PeopleTableViewComponent, PeopleTreeViewComponent } from './components';
 import { PeopleApiService } from './serices';
 import { FormsModule } from '@angular/forms';
+import { PersonDetailComponent } from './components/person-detail/person-detail.component';
 
 @NgModule({
   declarations: [
     PeopleComponent,
     PeopleTableViewComponent,
     PeopleTreeViewComponent,
+    PersonDetailComponent,
   ],
   providers: [
     PeopleApiService,

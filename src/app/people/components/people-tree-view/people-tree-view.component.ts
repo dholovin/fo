@@ -1,15 +1,15 @@
-import { Component, OnInit, Input, OnDestroy } from '@angular/core';
-import { IPerson, PersonFlatNode, PersonNode } from '../../models';
-import { FlatTreeControl } from '@angular/cdk/tree';
-import { MatTreeFlatDataSource, MatTreeFlattener } from '@angular/material/tree';
-import { Observable, of as observableOf } from 'rxjs';
-import { PeopleTreeViewService } from '../../serices';
-import { LoggerService } from '../../../core/services';
+import { Component, OnInit, Input, OnDestroy } from "@angular/core";
+import { IPerson, PersonFlatNode, PersonNode } from "../../models";
+import { FlatTreeControl } from "@angular/cdk/tree";
+import { MatTreeFlatDataSource, MatTreeFlattener } from "@angular/material/tree";
+import { Observable, of as observableOf } from "rxjs";
+import { PeopleTreeViewService } from "../../serices";
+import { LoggerService } from "../../../core/services";
 
 @Component({
-  selector: 'fo-people-tree-view',
-  templateUrl: './people-tree-view.component.html',
-  styleUrls: ['./people-tree-view.component.scss'],
+  selector: "fo-people-tree-view",
+  templateUrl: "./people-tree-view.component.html",
+  styleUrls: ["./people-tree-view.component.scss"],
   providers: [PeopleTreeViewService],
 })
 export class PeopleTreeViewComponent implements OnInit, OnDestroy {
