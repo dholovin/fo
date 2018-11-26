@@ -1,7 +1,7 @@
 import { BehaviorSubject } from "rxjs";
 import { Injectable } from "@angular/core";
-import { PersonNode, IPerson } from "../../models";
-import { LoggerService } from '../../../core/services';
+import { PersonNode, IPerson } from "../models";
+import { LoggerService } from '../../core/services';
 
 const NO_ASSOCIATION_GROUP_NAME: string = 'No Association';
 
@@ -10,30 +10,12 @@ export class PeopleTreeViewService {
     public $dataChange = new BehaviorSubject<PersonNode[]>([]);
     get data(): PersonNode[] { return this.$dataChange.value; }
 
-    constructor(private loggerService: LoggerService,) { }
+    constructor(private loggerService: LoggerService, ) { }
 
-    public buildPersonTree(people: IPerson[], level: number): PersonNode[] {
-        let insertNoAssociationGroup: boolean = false;
+    public buildPersonTree(people: IPerson[], filteredAssociation?: string): PersonNode[] {
 
         // Iterate through associations and build unique list
-        let uniqueAssociations: string[] = [];
-        uniqueAssociations = people.reduce((accumulator, currentPerson) => {
-            if (currentPerson.associations) {
-                currentPerson.associations.forEach((association) => {
-                    if (accumulator.indexOf(association.name.toLowerCase()) === -1) {
-                        accumulator.push(association.name.toLowerCase());
-                    }
-                })
-            } else {
-                insertNoAssociationGroup = true;
-            }
-
-            return accumulator.sort();
-        }, []);
-
-        if (insertNoAssociationGroup) {
-            uniqueAssociations.splice(0, 0, NO_ASSOCIATION_GROUP_NAME);
-        }
+        // const uniqueAssociations: string[] = this.getUniqueAssociations(people);
 
         // Sort all people by name, descending
         people.sort((personA: IPerson, personB: IPerson) => {
@@ -45,21 +27,28 @@ export class PeopleTreeViewService {
             return 0;
         })
 
-        // Iterate through people and build 
+        // Iterate through people and build the node tree
         let processedAssociations: string[] = [];
         let unknownAssociationNode: PersonNode;
         const data = people.reduce<PersonNode[]>((accumulator, currentPerson) => {
             if (currentPerson.associations) {
                 currentPerson.associations.forEach(association => {
-                    const associationName = association.name;
-                    if (!processedAssociations.includes(associationName)) {
+                    const associationName = association.name.toLowerCase();
+                    // Apply filter
+                    if (!filteredAssociation
+                        || (filteredAssociation && associationName.includes(filteredAssociation))) {
+                        if (!processedAssociations.includes(associationName)) {
+                            // root association node
+                            let node = new PersonNode();
+                            node.association = associationName;
 
-                        let node = new PersonNode(); // root association node
-                        node.association = associationName;
+                            // add children
+                            node.children = this.addChildNodesForAssociation(people, associationName);
 
-                        node.children = this.addChildNodesForAssociation(people, associationName); // add children
-                        accumulator.push(node); // add to output
-                        processedAssociations.push(associationName);
+                            // add root node with children to the output
+                            accumulator.push(node);
+                            processedAssociations.push(associationName);
+                        }
                     }
                 });
             } else {
@@ -91,13 +80,38 @@ export class PeopleTreeViewService {
             return accumulator;
 
         }, []);
-        
+
         this.loggerService.log(data);
         // Notify Observers of change
         this.$dataChange.next(data);
 
         return data;
     }
+
+    // private getUniqueAssociations(people: IPerson[]): string[] {
+    //     let uniqueAssociations: string[] = [];
+    //     let insertNoAssociationGroup: boolean = false;
+
+    //     uniqueAssociations = people.reduce((accumulator, currentPerson) => {
+    //         if (currentPerson.associations) {
+    //             currentPerson.associations.forEach((association) => {
+    //                 if (accumulator.indexOf(association.name.toLowerCase()) === -1) {
+    //                     accumulator.push(association.name.toLowerCase());
+    //                 }
+    //             })
+    //         } else {
+    //             insertNoAssociationGroup = true;
+    //         }
+    //         return accumulator.sort(); // Sort by Association Name descending
+    //     }, []);
+
+    //     // 'No Association' group to be on top, if applicable
+    //     if (insertNoAssociationGroup) {
+    //         uniqueAssociations.splice(0, 0, NO_ASSOCIATION_GROUP_NAME);
+    //     }
+
+    //     return uniqueAssociations;
+    // }
 
     private addChildNodesForAssociation(people: IPerson[], associationName: string): PersonNode[] {
         let childPeopleNodes: PersonNode[] = [];

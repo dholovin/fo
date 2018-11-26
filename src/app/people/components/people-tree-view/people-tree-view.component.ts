@@ -3,7 +3,7 @@ import { IPerson, PersonFlatNode, PersonNode } from '../../models';
 import { FlatTreeControl } from '@angular/cdk/tree';
 import { MatTreeFlatDataSource, MatTreeFlattener } from '@angular/material/tree';
 import { Observable, of as observableOf } from 'rxjs';
-import { PeopleTreeViewService } from './people-tree-view.service';
+import { PeopleTreeViewService } from '../../serices';
 import { LoggerService } from '../../../core/services';
 
 @Component({
@@ -35,7 +35,7 @@ export class PeopleTreeViewComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.peopleTreeViewService.$dataChange.subscribe(data => this.dataSource.data = data);
     
-    this.peopleTreeViewService.buildPersonTree(this.people, 0);
+    this.peopleTreeViewService.buildPersonTree(this.people);
   }
 
   ngOnDestroy(): void {
@@ -50,9 +50,7 @@ export class PeopleTreeViewComponent implements OnInit, OnDestroy {
 
   public hasChild = (_: number, _nodeData: PersonFlatNode) => _nodeData.expandable;
   
-  // public applyFilter(filterValue: string) {    
-  //   this.peopleDataSource.filter = filterValue.trim().toLowerCase();
-    
-  //   this.peopleTreeViewService.buildPersonTree(this.people, 0);
-  // }  
+  public applyFilter(filterValue: string) {    
+    this.peopleTreeViewService.buildPersonTree(this.people, filterValue.trim().toLowerCase());
+  }  
 }
