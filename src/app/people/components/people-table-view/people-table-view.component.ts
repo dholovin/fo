@@ -14,7 +14,6 @@ export class PeopleTableViewComponent implements OnInit {
   public displayedColumns: string[] = ['name', 'place', 'note', 'associations'];
   public peopleDataSource: MatTableDataSource<IPerson>;
 
-  
   constructor(private loggerService: LoggerService) { }
 
   ngOnInit() {
@@ -22,11 +21,7 @@ export class PeopleTableViewComponent implements OnInit {
     this.peopleDataSource.sort = this.sort;
   }
 
-  applyFilter(filterValue: string) {
+  public applyFilter(filterValue: string) {
     this.peopleDataSource.filter = filterValue.trim().toLowerCase();
-
-    // if (this.dataSource.paginator) {
-    //   this.dataSource.paginator.firstPage();
-    // }
   }
 }
