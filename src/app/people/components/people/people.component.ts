@@ -16,7 +16,7 @@ export class PeopleComponent implements OnInit {
 
   public people: IPerson[];
   public PeopleViewMode = PeopleViewMode;
-  public viewMode: PeopleViewMode = PeopleViewMode.Table;
+  public viewMode: PeopleViewMode = PeopleViewMode.Tree;
   
   ngOnInit() {
     this.peopleApiService.GetPeople()

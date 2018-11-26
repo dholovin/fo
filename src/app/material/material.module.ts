@@ -9,6 +9,8 @@ import {
   MatInputModule,
   MatTableModule,
   MatSortModule,
+  MatTreeModule,
+  MatIconModule,
 } from '@angular/material';
 
 @NgModule({
@@ -22,6 +24,8 @@ import {
     MatInputModule,
     MatTableModule,
     MatSortModule,
+    MatTreeModule,
+    MatIconModule,
   ],
 })
 export class MaterialModule { }

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { IPerson } from '../models';
+import { IPerson, PersonNode } from '../models';
 import { Observable, of } from 'rxjs';
 import { delay } from 'rxjs/operators';
 
@@ -8,9 +8,9 @@ export class PeopleApiService {
 
     // TODO: replace stub with real values
     public GetPeople(): Observable<IPerson[]> {
-
         const people = [
                 {
+                    id: 1,
                     name: 'John Doe',
                     place: 'soccer',
                     note: '2 daughters. younger is Zlata and elder is Sofa. wife - Erica. Plays good. Phone xxx-xxx-xx-xx',
@@ -23,6 +23,7 @@ export class PeopleApiService {
                     ],
                 },
                 {
+                    id: 2,
                     name: 'Clarisse',
                     place: 'hospital',
                     date: new Date(),
@@ -36,6 +37,7 @@ export class PeopleApiService {
                     ],
                 },
                 {
+                    id: 3,
                     name: 'Dave',
                     place: 'Isabella\'s birthday party',
                     date: new Date(),
@@ -50,6 +52,7 @@ export class PeopleApiService {
                     ],
                 },
                 {
+                    id: 4,
                     name: 'Bob',
                     place: 'Isabella\'s birthday party',
                     date: new Date(),
@@ -61,8 +64,15 @@ export class PeopleApiService {
                         { name: 'big house' },
                         { name: 'dieppe' },
                         { name: 'funny' },
+                        { name: 'Ymca' },
                         { name: 'ymca' },
                     ],
+                },
+                {
+                    id: 5,
+                    name: 'someone unknown',
+                    place: 'don\'t remember',
+                    date: new Date(),
                 }
             ] as IPerson[];
 

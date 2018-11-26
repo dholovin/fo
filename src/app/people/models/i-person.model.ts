@@ -1,6 +1,7 @@
 import { IAssotiation } from "./i-association.model";
 
-export interface IPerson{
+export interface IPerson {
+    id: number;
     name: string; // met a person 'named'
     place: string; // at specific place (may be used for grouping)
     
