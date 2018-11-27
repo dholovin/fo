@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from "@angular/core";
+import { ActivatedRoute } from "@angular/router";
 
 @Component({
   selector: "fo-person-detail",
@@ -6,11 +7,13 @@ import { Component, OnInit, Input } from "@angular/core";
   styleUrls: ["./person-detail.component.scss"]
 })
 export class PersonDetailComponent implements OnInit {
-  @Input() public id: number;
+  public id: number;
 
-  constructor() { }
+  constructor(private route: ActivatedRoute) { }
 
   ngOnInit() {
+    this.id = +this.route.snapshot.paramMap.get("id");
+
     console.log(this.id);
   }
 

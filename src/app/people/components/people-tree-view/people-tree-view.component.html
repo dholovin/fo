@@ -1,3 +1,10 @@
+<div class="fo-sticky-add-button">
+  <a [routerLink]="[ 'create' ]">
+    <!--<i class="material-icons fo-highlight-color md-64">add_circle</i>-->
+    <i class="material-icons md-dark md-64">add_circle</i>
+  </a>
+</div>
+
 <div>
   <mat-form-field style="width: 100%">
     <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
@@ -6,9 +13,15 @@
   <mat-tree [dataSource]="dataSource" [treeControl]="treeControl" class="mat-elevation-z8">
     <mat-tree-node *matTreeNodeDef="let node" matTreeNodeToggle matTreeNodePadding>
       <button mat-icon-button disabled></button>
-      <a routerLink="{{node.id}}">
-        <span>met <strong>&nbsp;{{node.name}}&nbsp;</strong> at <strong>&nbsp;{{node.place}}&nbsp;</strong></span>
-      </a>
+      <span class="fo-secondary-text">met&nbsp;</span>
+      <strong>{{node.name}}</strong>
+      <span class="fo-secondary-text">&nbsp;at&nbsp;</span>
+      <strong>{{node.place}}</strong>
+      <div class="fo-button-container">
+        <a routerLink="{{node.id}}">
+          <i class="material-icons md-dark md-18">edit</i>
+        </a>
+      </div>
     </mat-tree-node>
 
     <mat-tree-node *matTreeNodeDef="let node;when: hasChild" matTreeNodePadding>
@@ -16,8 +29,7 @@
         <mat-icon class="mat-icon-rtl-mirror">
           {{treeControl.isExpanded(node) ? "expand_more" : "chevron_right"}}
         </mat-icon>
-      </button>
-      {{node.association}} :
+      </button> {{node.association}} :
     </mat-tree-node>
   </mat-tree>
 </div>

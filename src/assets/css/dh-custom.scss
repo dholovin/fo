@@ -25,9 +25,37 @@ table {
 .fo-text-center {
     text-align: center;
 }
+
+.fo-button-container {
+    & a {
+        padding-left: 0.5rem;
+    } 
+}
+
+.fo-sticky-add-button {
+    display: block;
+    position: fixed;
+    bottom: 0;
+    left: 45%;
+    margin-bottom: 1rem;
+    opacity: 0.5;
+}
 /* POSITIONING ENDS */
 
+/* FORMATTING STARTS */
 .fo-version-info {
     font-size: 0.65rem; // ~8pt
     float: right;
 } 
+
+.fo-secondary-text {
+    // color: $secondary-color;
+    opacity: 0.7;
+    font-size: 0.7rem;
+}
+
+.fo-highlight-color {
+    color: $highlight-color;
+}
+
+/* FORMATTING ENDS */
