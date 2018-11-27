@@ -19,14 +19,13 @@ export class PeopleComponent implements OnInit {
   public viewMode: PeopleViewMode = PeopleViewMode.Table;
 
   // TODO: back navigation: save viewMode & filterText
-  
+  getPeople
   ngOnInit() {
-    this.peopleApiService.GetPeople()
+    this.peopleApiService.getPeople()
       .subscribe((people: IPerson[]) => {
         this.people = people;
-      },
-        (error: any) => {
-          // TODO: handle errors
-        })
+      }, (error: any) => {
+        // TODO: handle errors
+      })
   }
 }
