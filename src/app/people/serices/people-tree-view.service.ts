@@ -33,7 +33,7 @@ export class PeopleTreeViewService {
         const data = people.reduce<PersonNode[]>((accumulator, currentPerson) => {
             if (currentPerson.associations) {
                 currentPerson.associations.forEach(association => {
-                    const associationName = association.name.toLowerCase();
+                    const associationName = association.toLowerCase();
                     // Apply filter
                     if (!filteredAssociation
                         || (filteredAssociation && associationName.includes(filteredAssociation))) {
@@ -95,8 +95,8 @@ export class PeopleTreeViewService {
     //     uniqueAssociations = people.reduce((accumulator, currentPerson) => {
     //         if (currentPerson.associations) {
     //             currentPerson.associations.forEach((association) => {
-    //                 if (accumulator.indexOf(association.name.toLowerCase()) === -1) {
-    //                     accumulator.push(association.name.toLowerCase());
+    //                 if (accumulator.indexOf(association.toLowerCase()) === -1) {
+    //                     accumulator.push(association.toLowerCase());
     //                 }
     //             })
     //         } else {
@@ -117,7 +117,7 @@ export class PeopleTreeViewService {
         let childPeopleNodes: PersonNode[] = [];
 
         people.forEach((person: IPerson) => {
-            if (person.associations && person.associations!.find(a => a.name === associationName) !== undefined) {
+            if (person.associations && person.associations!.find(a => a === associationName) !== undefined) {
                 childPeopleNodes.push(this.person2NodeForAssociationName(person, associationName))
             }
         })

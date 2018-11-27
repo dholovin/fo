@@ -43,7 +43,7 @@
       <td mat-cell *matCellDef="let person">
         <mat-chip-list>
           <mat-chip color="accent" selected *ngFor="let association of person.associations">
-            {{association.name}}
+            {{association}}
           </mat-chip>
         </mat-chip-list>
       </td>
