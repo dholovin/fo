@@ -10,7 +10,7 @@ import { RouterModule } from '@angular/router';
 import { throwIfAlreadyLoaded } from './module-import-guard';
 import { CoreRoutingModule } from './core-routing.module';
 import { LoggerService } from './services';
-import { WelcomeComponent, NotFoundComponent  } from './components';
+import { WelcomeComponent, NotFoundComponent } from './components';
 
 // Angular Material Anumation module
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -36,7 +36,8 @@ import { MaterialModule } from '../material/material.module';
     /* NavComponent, SpinnerComponent, LoginComponent, HeaderComponent, */
   ],
   exports: [
-    RouterModule, /* NavComponent, SpinnerComponent*/
+    RouterModule, /* NavComponent, SpinnerComponent*/    
+    NotFoundComponent,
   ],
   providers: [
     LoggerService, /* SpinnerService */

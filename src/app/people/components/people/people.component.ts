@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { IPerson, PeopleViewMode } from "../../models";
 import { PeopleApiService } from "../../serices";
 import { LoggerService } from "../../../core/services";
+// import {LoadingComponent} from "../../../core/components";
 
 @Component({
   selector: "fo-people",

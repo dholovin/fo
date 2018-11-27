@@ -1,6 +1,6 @@
 <div *ngIf="isViewMode else createView">
   <div #loading *ngIf="(isBusy && !person) else personDetailView">
-    <span>Loading...</span>
+      <fo-loading></fo-loading>
   </div>
 
   <ng-template #personDetailView>
