@@ -53,4 +53,8 @@ export class PeopleTreeViewComponent implements OnInit, OnDestroy {
   public applyFilter(filterValue: string) {    
     this.peopleTreeViewService.buildPersonTree(this.people, filterValue.trim().toLowerCase());
   }  
+
+  public delete(id: number) {
+    alert(id);
+  }
 }

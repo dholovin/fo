@@ -26,10 +26,21 @@ table {
     text-align: center;
 }
 
+// TODO: think how to position items within container properly
+// reducing 'width' from 40px decreeses distance between elements within container - better looking
+// However, this breaks angular material item click effect. 
 .fo-button-link-container {
     & a {
-        padding-left: 0.5rem;
-    } 
+        // padding-left: 0.5rem;
+
+        &.mat-icon-button {
+            // width: 1.5rem !important;
+        }
+    }; 
+    & button {
+        // padding-left: 0.5rem;
+        // width: 1.5rem !important;
+    }
 }
 
 .fo-sticky-add-button {

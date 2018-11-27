@@ -17,7 +17,8 @@ export class PeopleTableViewComponent implements OnInit {
     { def: "name", showMobile: true },
     { def: "place", showMobile: true },
     { def: "note", showMobile: true },
-    { def: "associations", showMobile: false }
+    { def: "associations", showMobile: false },
+    { def: "toolbar", showMobile: true },
   ];
   private isMobile: boolean = false;
 
@@ -46,5 +47,9 @@ export class PeopleTableViewComponent implements OnInit {
     return this.columnDefinitions
       .filter(cd => !this.isMobile || cd.showMobile)
       .map(cd => cd.def);
+  }
+
+  public delete(id: number) {
+    alert(id);
   }
 }
