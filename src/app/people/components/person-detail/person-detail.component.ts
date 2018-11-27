@@ -12,7 +12,7 @@ export class PersonDetailComponent implements OnInit {
   constructor(private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.id = +this.route.snapshot.paramMap.get("id");
+    this.id = +this.route.snapshot.paramMap.get("id");      
 
     console.log(this.id);
   }
