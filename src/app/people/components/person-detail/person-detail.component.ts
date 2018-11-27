@@ -3,6 +3,7 @@ import { ActivatedRoute } from "@angular/router";
 import { IPerson } from "../../models";
 import { PeopleApiService } from "../../serices";
 import { finalize } from "rxjs/operators";
+import { FormGroup, FormControl, Validators } from "@angular/forms";
 
 @Component({
   selector: "fo-person-detail",
@@ -15,12 +16,21 @@ export class PersonDetailComponent implements OnInit {
   public person: IPerson;
   public isBusy: boolean = false;
   public recordFound: boolean = false;
+  public personForm: FormGroup;
 
   constructor(
     private route: ActivatedRoute,
     private peopleApiService: PeopleApiService) { }
 
   ngOnInit() {
+    this.personForm = new FormGroup({
+      name: new FormControl("", Validators.required),
+      place: new FormControl("", Validators.required),
+      date: new FormControl(""),
+      note: new FormControl(""),
+      associations: new FormControl(""),
+    });
+
     this.id = +this.route.snapshot.paramMap.get("id");
     this.isViewMode = !!this.id;
 

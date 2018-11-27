@@ -2,7 +2,6 @@ import { Component, OnInit } from "@angular/core";
 import { IPerson, PeopleViewMode } from "../../models";
 import { PeopleApiService } from "../../serices";
 import { LoggerService } from "../../../core/services";
-// import {LoadingComponent} from "../../../core/components";
 
 @Component({
   selector: "fo-people",
@@ -20,7 +19,6 @@ export class PeopleComponent implements OnInit {
   public viewMode: PeopleViewMode = PeopleViewMode.Table;
 
   // TODO: back navigation: save viewMode & filterText
-  getPeople
   ngOnInit() {
     this.peopleApiService.getPeople()
       .subscribe((people: IPerson[]) => {

@@ -5,7 +5,7 @@ import { MaterialModule } from '../material/material.module';
 import { PeopleRoutingModule } from './people-routing.module';
 import { PeopleComponent, PeopleTableViewComponent, PeopleTreeViewComponent } from './components';
 import { PeopleApiService } from './serices';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PersonDetailComponent } from './components/person-detail/person-detail.component';
 
 @NgModule({
@@ -21,6 +21,7 @@ import { PersonDetailComponent } from './components/person-detail/person-detail.
   imports: [
     CommonModule,   // ngIf, ngFor, etc...
     FormsModule,    // ngModel for templates-driven forms, 
+    ReactiveFormsModule,
     MaterialModule, // Angular Material Design components
     SharedModule,   // custom shared components
     PeopleRoutingModule,

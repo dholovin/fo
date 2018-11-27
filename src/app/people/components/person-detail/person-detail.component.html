@@ -1,66 +1,78 @@
-<div *ngIf="isViewMode else createView">
-  <div #loading *ngIf="(isBusy && !person) else personDetailView">
-      <fo-loading></fo-loading>
-  </div>
-
-  <ng-template #personDetailView>
-    <div class="container" *ngIf="recordFound else noRecordFound">
-      <div class="row">
-        <div class="col-2">
-          <label>Name</label>
-        </div>
-        <div class="col-10">
-          <span>{{person.name}}</span>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-2">
-          <label>Place</label>
-        </div>
-        <div class="col-10">
-          <span>{{person.place}}</span>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-2">
-          <label>Date</label>
-        </div>
-        <div class="col-10">
-          <span>{{person.Date}}</span>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-2">
-          <label>Note</label>
-        </div>
-        <div class="col-10">
-          <span>{{person.note}}</span>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-2">
-          <label>Associations</label>
-        </div>
-        <div class="col-10">
-          <span>{{person.association}}</span>
-        </div>
-      </div>
-    </div>
-
-    <ng-template #noRecordFound>
-      <span>
-        No Record found by id: '{{id}}'
-      </span>
-    </ng-template>
-
-
-
-
-  </ng-template>
+<div #loading *ngIf="isBusy else contentView">
+  <fo-loading></fo-loading>
 </div>
 
-<ng-template #createView>
-  <p>
-    person-detail Create - id: '{{id}}'
-  </p>
+<ng-template #contentView>
+  <div *ngIf="isViewMode && !recordFound else personDetail">
+    <span>
+      No Record found by id: '{{id}}'
+    </span>
+  </div>
+
+  <ng-template #personDetail>
+    <div class="mat-elevation-z8">
+      <form [formGroup]="personForm" [ngSwitch]="isViewMode">
+        <div class="container">
+          <div class="row">
+            <div class="col-3 col-md-2">
+              <label>Name</label>
+            </div>
+            <div class="col-9 col-md-10">
+              <span *ngSwitchDefault>{{person.name}}</span>
+              <input *ngSwitchCase="false" type="text" formControlName="name">
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-3 col-md-2">
+              <label>Place</label>
+            </div>
+            <div class="col-9 col-md-10">
+              <span *ngSwitchDefault>{{person.place}}</span>
+              <input *ngSwitchCase="false" type="text" formControlName="place">
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-3 col-md-2">
+              <label>Date</label>
+            </div>
+            <div class="col-9 col-md-10">
+              <span *ngSwitchDefault>{{person.date | date}}</span>
+              <input *ngSwitchCase="false" type="text" formControlName="date">
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-3 col-md-2">
+              <label>Note</label>
+            </div>
+            <div class="col-9 col-md-10">
+              <span *ngSwitchDefault>{{person.note}}</span>
+              <input *ngSwitchCase="false" type="text" formControlName="note">
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-3 col-md-2">
+              <label>Associations</label>
+            </div>
+            <div class="col-9 col-md-10">
+              <mat-chip-list *ngSwitchDefault>
+                <mat-chip color="accent" selected *ngFor="let association of person.associations">
+                  {{association}}
+                </mat-chip>
+              </mat-chip-list>
+              <input *ngSwitchCase="false" type="text" formControlName="associations">
+            </div>
+          </div>
+          <div class="row" *ngSwitchCase="false">
+            <div class="col-3 col-md-2"></div>
+            <div class="col-9 col-md-10">
+              <button mat-button (click)="updatePersonDetail()" [disabled]="personForm.invalid || !(personForm.dirty || personForm.touched)">
+                Save
+              </button>
+              <button mat-button (click)="back()">Back</button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </ng-template>
 </ng-template>

@@ -6,7 +6,6 @@
 
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
 import { LoadingComponent } from './components';
 
 @NgModule({
@@ -14,8 +13,7 @@ import { LoadingComponent } from './components';
     LoadingComponent,
   ],
   imports: [
-    CommonModule,
-    FormsModule,
+    CommonModule,    
   ],
   exports:[
     LoadingComponent,
