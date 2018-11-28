@@ -7,6 +7,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LoadingComponent } from './components';
+import { Globals } from './globals';
 
 @NgModule({
   declarations: [
@@ -14,6 +15,9 @@ import { LoadingComponent } from './components';
   ],
   imports: [
     CommonModule,    
+  ],
+  providers: [
+    Globals,
   ],
   exports:[
     LoadingComponent,

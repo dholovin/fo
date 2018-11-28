@@ -65,7 +65,7 @@
           <div class="row" *ngSwitchCase="false">
             <div class="col-3 col-md-2"></div>
             <div class="col-9 col-md-10">
-              <button mat-button (click)="updatePersonDetail()" [disabled]="personForm.invalid || !(personForm.dirty || personForm.touched)">
+              <button mat-button (click)="save()" [disabled]="personForm.invalid || !(personForm.dirty || personForm.touched)">
                 Save
               </button>
               <button mat-button (click)="back()">Back</button>
