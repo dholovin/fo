@@ -1,6 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { IPerson, PeopleViewMode } from "../../models";
-import { PeopleApiService } from "../../serices";
+import { PeopleViewMode } from "../../models";
 import { LoggerService } from "../../../core/services";
 
 @Component({
@@ -10,21 +9,11 @@ import { LoggerService } from "../../../core/services";
 })
 export class PeopleComponent implements OnInit {
 
-  constructor(
-    private loggerService: LoggerService,
-    private peopleApiService: PeopleApiService) { }
+  constructor(private loggerService: LoggerService) { }
 
-  public people: IPerson[];
   public PeopleViewMode = PeopleViewMode;
-  public viewMode: PeopleViewMode = PeopleViewMode.Tree;
+  public viewMode: PeopleViewMode = PeopleViewMode.Table;
 
-  // TODO: back navigation: save viewMode & filterText
   ngOnInit() {
-    this.peopleApiService.getPeople()
-      .subscribe((people: IPerson[]) => {
-        this.people = people;
-      }, (error: any) => {
-        // TODO: handle errors
-      })
   }
 }

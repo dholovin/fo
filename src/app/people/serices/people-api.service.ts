@@ -3,8 +3,9 @@ import { IPerson, PersonNode } from "../models";
 import { Observable, of } from "rxjs";
 import { delay } from "rxjs/operators";
 
+const TIMEOUT: number = 1000; // to emulate network latency
 // TODO: replace stub with real values
-const PEOPLE = [
+let PEOPLE = [
     {
         id: 1,
         name: "John Doe",
@@ -76,11 +77,20 @@ const PEOPLE = [
 export class PeopleApiService {
 
     public getPeople(): Observable<IPerson[]> {
-        return of(PEOPLE).pipe(delay(1000));
+        return of(PEOPLE).pipe(delay(TIMEOUT));
     }
 
-    public getPersonDetail(id: number): Observable<IPerson> {
+    public getPerson(id: number): Observable<IPerson> {
         return of(PEOPLE.find((person: IPerson) => person.id === id))
-            .pipe(delay(1000));
+            .pipe(delay(TIMEOUT));
+    }
+
+    public deletePerson(id: number): Observable<IPerson[]> {
+        let personIndex: number = PEOPLE.findIndex(person => person.id === id);
+        if (personIndex != -1) {
+            PEOPLE.splice(personIndex, 1);
+        }
+
+        return of(PEOPLE).pipe(delay(TIMEOUT));
     }
 }

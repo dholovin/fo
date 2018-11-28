@@ -41,7 +41,7 @@ export class PersonDetailComponent implements OnInit {
 
   private loadPersonDetails(id: number): void {
     this.isBusy = true;
-    this.peopleApiService.getPersonDetail(id)
+    this.peopleApiService.getPerson(id)
       .pipe(finalize(() => {
         this.isBusy = false;
       }))

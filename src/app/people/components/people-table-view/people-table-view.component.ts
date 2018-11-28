@@ -1,7 +1,9 @@
 import { Component, OnInit, Input, ViewChild } from "@angular/core";
 import { HostListener } from "@angular/core";
 import { MatTableDataSource, MatSort } from "@angular/material";
+import { finalize } from "rxjs/operators";
 import { IPerson } from "../../models";
+import { PeopleApiService } from "../../serices";
 import { LoggerService } from "../../../core/services";
 
 @Component({
@@ -10,9 +12,11 @@ import { LoggerService } from "../../../core/services";
   styleUrls: ["./people-table-view.component.scss"]
 })
 export class PeopleTableViewComponent implements OnInit {
-  @Input() public people: IPerson[];
-  @ViewChild(MatSort) sort: MatSort;
+  public people: IPerson[];
+  public isBusy: boolean = false;
 
+  @ViewChild(MatSort) sort: MatSort;
+  public peopleDataSource: MatTableDataSource<IPerson>;
   public columnDefinitions = [
     { def: "name", showMobile: true },
     { def: "place", showMobile: true },
@@ -20,16 +24,30 @@ export class PeopleTableViewComponent implements OnInit {
     { def: "associations", showMobile: false },
     { def: "toolbar", showMobile: true },
   ];
+
   private isMobile: boolean = false;
 
-  public peopleDataSource: MatTableDataSource<IPerson>;
-
-  constructor(private loggerService: LoggerService) { }
+  constructor(
+    private loggerService: LoggerService,
+    private peopleApiService: PeopleApiService) { }
 
   ngOnInit() {
-    this.peopleDataSource = new MatTableDataSource(this.people);
-    this.peopleDataSource.sort = this.sort;
-    this.getDisplayedColumns();
+    this.isBusy = true;
+    this.peopleApiService.getPeople()
+      .pipe(finalize(() => {
+        this.isBusy = false;
+      }))
+      .subscribe((people: IPerson[]) => {
+        this.people = people;
+
+        // re-build the Table
+        this.peopleDataSource = new MatTableDataSource(this.people);
+        this.peopleDataSource.sort = this.sort;
+        this.getDisplayedColumns();
+      }, (error: any) => {
+        // TODO: handle errors
+      })
+
   }
 
   public applyFilter(filterValue: string) {
@@ -50,6 +68,19 @@ export class PeopleTableViewComponent implements OnInit {
   }
 
   public delete(id: number) {
-    alert(id);
+    if (confirm("Are you sure you want to delete?")) {
+      this.isBusy = true;
+      this.peopleApiService.deletePerson(id)
+        .pipe(finalize(() => {
+          this.isBusy = false;
+        }))
+        .subscribe((people: IPerson[]) => {
+          this.people = people;
+          // re-build the Table
+          this.peopleDataSource = new MatTableDataSource(this.people);
+        }, (error: any) => {
+          // TODO: handle errors
+        })
+    }
   }
 }

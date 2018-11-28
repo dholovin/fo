@@ -1,3 +1,7 @@
+<div *ngIf="isBusy">
+  <fo-loading></fo-loading>
+</div>
+
 <div class="fo-sticky-add-button">
   <a [routerLink]="[ 'create' ]">
     <!--<i class="material-icons fo-highlight-color md-64">add_circle</i>-->
@@ -21,7 +25,7 @@
         <a mat-icon-button routerLink="{{node.id}}">
           <i class="material-icons md-dark md-18">edit</i>
         </a>
-        <button mat-icon-button (click)="delete(person.id)">
+        <button mat-icon-button (click)="delete(node.id)">
           <i class="material-icons md-dark md-18">delete</i>
         </button>
       </div>
