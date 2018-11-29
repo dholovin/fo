@@ -20,7 +20,10 @@ export class PersonDetailComponent implements OnInit {
   public person: IPerson;
   public isBusy: boolean = false;
   public recordFound: boolean = false;
-  public personForm: FormGroup;
+
+  public personForm : FormGroup;
+  public get nameField() { return this.personForm.get("name"); }
+  public get placeField() { return this.personForm.get("place"); }
 
   constructor(
     private globals: Globals,

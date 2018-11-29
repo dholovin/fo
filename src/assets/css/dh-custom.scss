@@ -18,6 +18,29 @@ table {
     width: 100%;
 }
 
+/* FORM DESIGN START */
+.fo-form {
+  min-width: 12.5rem;
+  max-width: 41.5rem;
+  width: 100%;
+  padding: 1.5rem;
+}
+
+.fo-form-field {
+  width: 100%;
+  margin-bottom: 0.5rem;
+}
+
+.fo-form-button-group {
+    padding-top: 0.5rem;
+    float: right;
+
+    & button {
+        margin-left: 0.5rem;
+    }
+}
+/* FORM DESIGN END */
+
 /* NAVIGATION STARTS */
 /* NAVIGATION ENDS */
 
