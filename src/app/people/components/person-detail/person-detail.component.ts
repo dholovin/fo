@@ -21,9 +21,10 @@ export class PersonDetailComponent implements OnInit {
   public isBusy: boolean = false;
   public recordFound: boolean = false;
 
-  public personForm : FormGroup;
+  public personForm: FormGroup;
   public get nameField() { return this.personForm.get("name"); }
   public get placeField() { return this.personForm.get("place"); }
+  public get dateField() { return this.personForm.get("date"); }
 
   constructor(
     private globals: Globals,
@@ -35,6 +36,7 @@ export class PersonDetailComponent implements OnInit {
     this.personForm = new FormGroup({
       name: new FormControl("", Validators.required),
       place: new FormControl("", Validators.required),
+      // date: new FormControl({ disabled: true }), // TODO: check how to disable manual input but leave popup
       date: new FormControl(""),
       note: new FormControl(""),
       associations: new FormControl(""),
@@ -51,6 +53,10 @@ export class PersonDetailComponent implements OnInit {
     } else {
       // Create
     }
+  }
+
+  public disableFutureDates(selectedDate: Date): boolean {
+    return selectedDate.getTime() <= new Date().getTime();
   }
 
   public back() {
@@ -70,10 +76,12 @@ export class PersonDetailComponent implements OnInit {
 
     let action: Observable<IPerson[]>;
     if (this.isCreateMode) {
+      // TODO: implement functionality
       console.log("Creating...")
       console.log(person)
       // action = this.peopleApiService.createPerson(person);
     } else {
+      // TODO: implement functionality
       // action = this.peopleApiService.updatePerson(this.id, person);
       console.log("Updating...")
       console.log(person)

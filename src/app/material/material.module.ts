@@ -11,6 +11,8 @@ import {
   MatSortModule,
   MatTreeModule,
   MatIconModule,
+  MatDatepickerModule,
+  MatNativeDateModule, // TODO: investigate MatMomentDateModule or custom implementation
 } from '@angular/material';
 
 @NgModule({
@@ -26,6 +28,8 @@ import {
     MatSortModule,
     MatTreeModule,
     MatIconModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
   ],
 })
 export class MaterialModule { }

@@ -16,7 +16,7 @@
 
           <div class="row">
             <div class="col-12">
-              <mat-form-field appearance="legacy" class="fo-form-field">
+              <mat-form-field appearance="legacy" class="fo-form-field-full-width">
                 <mat-label>Name</mat-label>
                 <input matInput #inputName maxlength="64" formControlName="name" required>
                 <mat-error *ngIf="nameField.invalid && (nameField.dirty || nameField.touched) && nameField.errors.required">Required</mat-error>
@@ -27,7 +27,7 @@
 
           <div class="row">
             <div class="col-12">
-              <mat-form-field appearance="legacy" class="fo-form-field">
+              <mat-form-field appearance="legacy" class="fo-form-field-full-width">
                 <mat-label>Place</mat-label>
                 <input matInput #inputPlace maxlength="128" formControlName="place" required>
                 <mat-error *ngIf="placeField.invalid && (placeField.dirty || placeField.touched) && placeField.errors.required">Required</mat-error>
@@ -38,25 +38,27 @@
 
           <div class="row">
             <div class="col-12">
-              <mat-form-field appearance="legacy" class="fo-form-field">
+              <mat-form-field appearance="legacy" class="fo-form-field-default-width" >
+                <mat-label>Date</mat-label>
+                <input matInput [matDatepicker]="personDate" [matDatepickerFilter]="disableFutureDates" formControlName="date">
+                <mat-error *ngIf="dateField.invalid && (dateField.dirty || dateField.touched)">Date can't be in the future</mat-error>
+                <mat-datepicker-toggle matSuffix [for]="personDate"></mat-datepicker-toggle>
+                <mat-datepicker #personDate></mat-datepicker>
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-12">
+              <mat-form-field appearance="legacy" class="fo-form-field-full-width">
                 <mat-label>Note</mat-label>
-                <textarea #inputNote matInput formControlName="note"></textarea>
-                <mat-hint align="end">{{inputNote.value?.length || 0}}/256</mat-hint>
+                <textarea #inputNote matInput maxlength="512" formControlName="note"></textarea>
+                <mat-hint align="end">{{inputNote.value?.length || 0}}/512</mat-hint>
               </mat-form-field>
             </div>
           </div>
 
           <!--
-          <div class="row">
-            <div class="col-3 col-md-2">
-              <label>Date</label>
-            </div>
-            <div class="col-9 col-md-10">
-              <span *ngSwitchDefault>{{person.date | date}}</span>
-              <input *ngSwitchCase="false" type="text" formControlName="date">
-            </div>
-          </div>
-         
           <div class="row">
             <div class="col-3 col-md-2">
               <label>Associations</label>
@@ -75,8 +77,8 @@
             <div class="col-12">
               <div class="fo-form-button-group">
                 <button mat-stroked-button mat-button (click)="save()" [disabled]="personForm.invalid || !(personForm.dirty || personForm.touched)">
-                Save
-              </button>
+                  Save
+                </button>
                 <button mat-stroked-button mat-button (click)="back()">Back</button>
               </div>
             </div>

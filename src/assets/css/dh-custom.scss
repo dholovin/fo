@@ -26,7 +26,11 @@ table {
   padding: 1.5rem;
 }
 
-.fo-form-field {
+.fo-form-field-default-width {
+    margin-bottom: 0.5rem;
+  }
+
+.fo-form-field-full-width {
   width: 100%;
   margin-bottom: 0.5rem;
 }
