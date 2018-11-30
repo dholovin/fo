@@ -1,12 +1,14 @@
 import { Component, OnInit, Input } from "@angular/core";
 import { Location } from '@angular/common';
 import { ActivatedRoute } from "@angular/router";
-import { finalize } from "rxjs/operators";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
+import { COMMA, ENTER } from "@angular/cdk/keycodes";
+import { MatChipInputEvent } from "@angular/material";
+import { Observable } from "rxjs";
+import { finalize } from "rxjs/operators";
 import { IPerson, IUpsertPerson } from "../../models";
 import { PeopleApiService } from "../../serices";
 import { Globals } from "../../../shared/globals"; // comes from Shared NgModule
-import { Observable } from "rxjs";
 
 @Component({
   selector: "fo-person-detail",
@@ -17,6 +19,15 @@ export class PersonDetailComponent implements OnInit {
   public id: number;
   public isViewMode: boolean = false;   // TODO: introduce enum for the record mode { Create|View|Edit } ?
   public isCreateMode: boolean = false; // TODO: introduce enum for the record mode { Create|View|Edit } ?
+
+  // Association input properties - start
+  public visible = true;
+  public associationSelectable = true;
+  public associationRemovable = true;
+  public addAssociationOnBlur = true;
+  readonly associationsSeparatorKeyCodes: number[] = [ENTER, COMMA];
+  // Association input properties - end
+
   public person: IPerson;
   public isBusy: boolean = false;
   public recordFound: boolean = false;
@@ -51,12 +62,38 @@ export class PersonDetailComponent implements OnInit {
       // View / Edit
       this.loadPersonDetails(this.id);
     } else {
+      this.person = { associations: [] };
       // Create
     }
   }
 
   public disableFutureDates(selectedDate: Date): boolean {
     return selectedDate.getTime() <= new Date().getTime();
+  }
+
+  public addAssociation(event: MatChipInputEvent): void {
+    const input = event.input;
+    const value = event.value;
+
+    if ((value || "").trim()) {
+      // TODO: Fix a bug in Create mode - new associations are not proparated to the formControl
+      this.person.associations.push(value.trim());
+    }
+
+    // Reset the input value
+    if (input) {
+      input.value = "";
+    }
+  }
+
+  public removeAssociation(association: string): void {
+    if (this.person.associations) {
+      const index = this.person.associations.indexOf(association);
+
+      if (index >= 0) {
+        this.person.associations.splice(index, 1);
+      }
+    }
   }
 
   public back() {
