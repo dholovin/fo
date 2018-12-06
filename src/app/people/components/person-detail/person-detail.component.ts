@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from "@angular/core";
 import { Location } from '@angular/common';
 import { ActivatedRoute } from "@angular/router";
-import { FormGroup, FormControl, Validators } from "@angular/forms";
+import { FormBuilder, FormGroup, FormArray, FormControl, Validators } from "@angular/forms";
 import { COMMA, ENTER } from "@angular/cdk/keycodes";
 import { MatChipInputEvent } from "@angular/material";
 import { Observable } from "rxjs";
@@ -16,7 +16,9 @@ import { Globals } from "../../../shared/globals"; // comes from Shared NgModule
   styleUrls: ["./person-detail.component.scss"]
 })
 export class PersonDetailComponent implements OnInit {
-  public id: number;
+  public personId: number;
+  public isBusy: boolean = false;
+  public recordFound: boolean = false;
   public isViewMode: boolean = false;   // TODO: introduce enum for the record mode { Create|View|Edit } ?
   public isCreateMode: boolean = false; // TODO: introduce enum for the record mode { Create|View|Edit } ?
 
@@ -28,42 +30,39 @@ export class PersonDetailComponent implements OnInit {
   readonly associationsSeparatorKeyCodes: number[] = [ENTER, COMMA];
   // Association input properties - end
 
-  public person: IPerson;
-  public isBusy: boolean = false;
-  public recordFound: boolean = false;
-
   public personForm: FormGroup;
   public get nameField() { return this.personForm.get("name"); }
   public get placeField() { return this.personForm.get("place"); }
   public get dateField() { return this.personForm.get("date"); }
+  public get associations() { return this.personForm.get("associations") as FormArray; }
 
   constructor(
     private globals: Globals,
     private route: ActivatedRoute,
     private location: Location,
-    private peopleApiService: PeopleApiService) { }
+    private peopleApiService: PeopleApiService,
+    private formBuilder: FormBuilder) { }
 
   ngOnInit() {
-    this.personForm = new FormGroup({
-      name: new FormControl("", Validators.required),
-      place: new FormControl("", Validators.required),
+    this.personForm = this.formBuilder.group({
+      name: ["", Validators.required],
+      place: ["", Validators.required],
       // date: new FormControl({ disabled: true }), // TODO: check how to disable manual input but leave popup
-      date: new FormControl(""),
-      note: new FormControl(""),
-      associations: new FormControl(""),
+      date: [""],
+      note: [""],
+      associations: this.formBuilder.array([]),
     });
 
-    this.id = +this.route.snapshot.paramMap.get("id");
-    this.isCreateMode = !(!!this.id);
+    this.personId = +this.route.snapshot.paramMap.get("id");
+    this.isCreateMode = !(!!this.personId);
     // TODO: don't we want viewOnly mode/component?
     // this.isViewMode = !!this.id;
 
     if (!this.isCreateMode) {
       // View / Edit
-      this.loadPersonDetails(this.id);
+      this.loadPersonDetails(this.personId);
     } else {
-      this.person = { associations: [] };
-      // Create
+      // Create      
     }
   }
 
@@ -76,8 +75,8 @@ export class PersonDetailComponent implements OnInit {
     const value = event.value;
 
     if ((value || "").trim()) {
-      // TODO: Fix a bug in Create mode - new associations are not proparated to the formControl
-      this.person.associations.push(value.trim());
+      this.addAssociationToFormArray(value.trim());
+      this.personForm.markAsDirty(); // otherwise form didn't recognize it was changed - Save button was disabled
     }
 
     // Reset the input value
@@ -86,13 +85,10 @@ export class PersonDetailComponent implements OnInit {
     }
   }
 
-  public removeAssociation(association: string): void {
-    if (this.person.associations) {
-      const index = this.person.associations.indexOf(association);
-
-      if (index >= 0) {
-        this.person.associations.splice(index, 1);
-      }
+  public removeAssociation(index: number): void {
+    if (index >= 0) {
+      this.associations.removeAt(index);
+      this.personForm.markAsDirty(); // otherwise form didn't recognize it was changed - Save button was disabled
     }
   }
 
@@ -103,7 +99,7 @@ export class PersonDetailComponent implements OnInit {
   public save() {
     let formData = this.globals.deepCopy(this.personForm.value);
 
-    const person: IUpsertPerson = {
+    const upsertPerson: IUpsertPerson = {
       name: formData["name"],
       place: formData["place"],
       date: formData["date"],
@@ -115,13 +111,13 @@ export class PersonDetailComponent implements OnInit {
     if (this.isCreateMode) {
       // TODO: implement functionality
       console.log("Creating...")
-      console.log(person)
-      // action = this.peopleApiService.createPerson(person);
+      console.log(upsertPerson)
+      // action = this.peopleApiService.createPerson(upsertPerson);
     } else {
       // TODO: implement functionality
-      // action = this.peopleApiService.updatePerson(this.id, person);
+      // action = this.peopleApiService.updatePerson(this.personId, upsertPerson);
       console.log("Updating...")
-      console.log(person)
+      console.log(upsertPerson)
     }
 
     // this.isBusy = true;
@@ -147,7 +143,6 @@ export class PersonDetailComponent implements OnInit {
         } else {
           this.recordFound = true;
 
-          this.person = person;
           this.updatePersonForm(person);
         }
       }, (error: any) => {
@@ -155,7 +150,14 @@ export class PersonDetailComponent implements OnInit {
       })
   }
 
+  private addAssociationToFormArray(value: string) {
+    this.associations.push(this.formBuilder.control(value));
+  }
+
   private updatePersonForm(person: IPerson) {
     this.personForm.reset(person);
+    if (person.associations) {
+      person.associations.forEach(association => { this.addAssociationToFormArray(association) });
+    }
   }
 }
