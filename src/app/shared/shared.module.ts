@@ -6,18 +6,22 @@
 
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { HttpClientModule } from "@angular/common/http";
 import { LoadingComponent } from './components';
 import { Globals } from './globals';
+import { BaseApiService } from './services';
 
 @NgModule({
   declarations: [
     LoadingComponent,
   ],
   imports: [
-    CommonModule,    
+    CommonModule,  
+    HttpClientModule,  
   ],
   providers: [
     Globals,
+    BaseApiService,
   ],
   exports:[
     LoadingComponent,

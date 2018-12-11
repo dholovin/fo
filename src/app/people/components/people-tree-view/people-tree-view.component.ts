@@ -4,7 +4,7 @@ import { MatTreeFlatDataSource, MatTreeFlattener } from "@angular/material/tree"
 import { Observable, of as observableOf } from "rxjs";
 import { finalize } from "rxjs/operators";
 import { IPerson, PersonFlatNode, PersonNode } from "../../models";
-import { PeopleTreeViewService, PeopleApiService } from "../../serices";
+import { PeopleTreeViewService, PeopleApiService } from "../../services";
 import { LoggerService } from "../../../core/services";
 
 @Component({

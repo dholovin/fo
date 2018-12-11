@@ -1,4 +1,6 @@
-export interface IPerson {
+import { IBaseModel } from "../../shared/models";
+
+export interface IPerson extends IBaseModel {
     id: number;
     name: string; // met a person 'named'
     place: string; // at specific place (may be used for grouping)

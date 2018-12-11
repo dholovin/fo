@@ -4,7 +4,7 @@ import { SharedModule } from '../shared/shared.module';
 import { MaterialModule } from '../material/material.module';
 import { PeopleRoutingModule } from './people-routing.module';
 import { PeopleComponent, PeopleTableViewComponent, PeopleTreeViewComponent } from './components';
-import { PeopleApiService } from './serices';
+import { PeopleApiService } from './services';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PersonDetailComponent } from './components/person-detail/person-detail.component';
 

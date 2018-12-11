@@ -3,7 +3,7 @@ import { HostListener } from "@angular/core";
 import { MatTableDataSource, MatSort } from "@angular/material";
 import { finalize } from "rxjs/operators";
 import { IPerson } from "../../models";
-import { PeopleApiService } from "../../serices";
+import { PeopleApiService } from "../../services";
 import { LoggerService } from "../../../core/services";
 
 @Component({

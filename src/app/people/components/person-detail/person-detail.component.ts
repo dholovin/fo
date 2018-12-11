@@ -7,7 +7,7 @@ import { MatChipInputEvent } from "@angular/material";
 import { Observable } from "rxjs";
 import { finalize } from "rxjs/operators";
 import { IPerson, IUpsertPerson } from "../../models";
-import { PeopleApiService } from "../../serices";
+import { PeopleApiService } from "../../services";
 import { Globals } from "../../../shared/globals"; // comes from Shared NgModule
 
 @Component({

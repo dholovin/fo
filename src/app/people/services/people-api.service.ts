@@ -2,6 +2,8 @@ import { Injectable } from "@angular/core";
 import { IPerson, PersonNode } from "../models";
 import { Observable, of } from "rxjs";
 import { delay } from "rxjs/operators";
+import { BaseApiService } from "../../shared/services";
+import { LoggerService } from "../../core/services";
 
 const TIMEOUT: number = 1000; // to emulate network latency
 // TODO: replace stub with real values
@@ -75,6 +77,18 @@ let PEOPLE = [
 
 @Injectable()
 export class PeopleApiService {
+
+    constructor(private baseApiService: BaseApiService,
+        private loggerService: LoggerService) {
+
+        // TODO: remove. Just for testing BaseApiService wrapper    
+        baseApiService.get("https://www.techiediaries.com/api/data.json")
+            .subscribe((response) => {
+                loggerService.log(response);
+            }, (error: any) => {
+                var err = error;
+            });
+    }
 
     public getPeople(): Observable<IPerson[]> {
         return of(PEOPLE).pipe(delay(TIMEOUT));
