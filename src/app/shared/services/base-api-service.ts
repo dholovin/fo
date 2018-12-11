@@ -6,5 +6,4 @@ import { HttpClient } from "@angular/common/http";
 
 @Injectable()
 export class BaseApiService extends HttpClient {
-   
 }

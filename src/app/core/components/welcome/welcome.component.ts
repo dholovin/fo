@@ -1,13 +1,14 @@
-import { Component, OnInit } from '@angular/core';
-import { trigger, state, style, transition, animate } from '@angular/animations';
+import { Component, OnInit } from "@angular/core";
+import { trigger, state, style, transition, animate } from "@angular/animations";
+import { AbstractFormGroupDirective } from "@angular/forms";
 
 @Component({
-    selector: 'fo-welcome',
-    templateUrl: './welcome.component.html',
+    selector: "fo-welcome",
+    templateUrl: "./welcome.component.html",
     animations: [
-        trigger('foFadeAnimation', [
-            // fade out when created. this could also be written as transition('void => *')
-            transition(':enter', [
+        trigger("foFadeAnimation", [
+            // fade out when created. this could also be written as transition("void => *")
+            transition(":enter", [
                 style({ opacity: 0 }),
                 animate(1000)
             ]),
@@ -15,7 +16,9 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
     ]
 })
 export class WelcomeComponent implements OnInit {
-    constructor() { }
+    constructor() {
+    }
 
-    ngOnInit(): void { }
+    ngOnInit(): void {
+    }
 }
