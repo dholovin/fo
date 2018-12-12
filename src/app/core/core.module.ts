@@ -9,7 +9,7 @@ import { RouterModule } from "@angular/router";
 
 import { throwIfAlreadyLoaded } from "./module-import-guard";
 import { CoreRoutingModule } from "./core-routing.module";
-import { LoggerService, BaseApiService, Globals } from "./services";
+import { LoggerService, BaseApiService, Globals, OnlineOfflineService } from "./services";
 import { WelcomeComponent, NotFoundComponent } from "./components";
 
 // Angular Material Anumation module
@@ -45,6 +45,7 @@ import { HttpClientModule } from "@angular/common/http";
     LoggerService, /* SpinnerService */
     Globals,
     BaseApiService,
+    OnlineOfflineService,
   ],
 })
 export class CoreModule {

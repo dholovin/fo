@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { Globals } from "../../../core/services"; // comes from Core NgModule
+import { Globals, OnlineOfflineService } from "../../../core/services"; // comes from Core NgModule
 
 @Component({
   selector: "fo-reminder-view.component",
@@ -8,10 +8,21 @@ import { Globals } from "../../../core/services"; // comes from Core NgModule
 })
 export class ReminderViewComponent implements OnInit {
 
-  constructor(private globals: Globals) { }
+  constructor(private globals: Globals,
+    private onlineOfflineService: OnlineOfflineService) { }
 
   ngOnInit() {
-    var test = this.globals.deepCopy({asd: "asd"});
+    const test = this.globals.deepCopy({ asd: "asd" });
+
+    this.onlineOfflineService.connectionChanged.subscribe(online => {
+      if (online) {
+        console.log("went online");
+        console.log("sending all stored items");
+      } else {
+        console.log("went offline, storing in indexdb");
+      }
+    });
+
   }
 
 }
