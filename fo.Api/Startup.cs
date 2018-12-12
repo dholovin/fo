@@ -55,7 +55,9 @@ namespace fo.Api
 
             app.UseCors("AllowAllOrigins");
 
-            app.UseHttpsRedirection();
+            // TODO: revert back when ready to enable SSL
+            // app.UseHttpsRedirection();
+
             app.UseMvc();
         }
     }
