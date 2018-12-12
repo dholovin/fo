@@ -1,8 +1,8 @@
-import { NgModule } from '@angular/core';
+import { NgModule } from "@angular/core";
 import {
-  MatButtonModule, 
-  MatCheckboxModule, 
-  MatTooltipModule, 
+  MatButtonModule,
+  MatCheckboxModule,
+  MatTooltipModule,
   MatChipsModule,
   MatRadioModule,
   MatDividerModule,
@@ -13,7 +13,7 @@ import {
   MatIconModule,
   MatDatepickerModule,
   MatNativeDateModule, // TODO: investigate MatMomentDateModule or custom implementation
-} from '@angular/material';
+} from "@angular/material";
 
 @NgModule({
   exports: [

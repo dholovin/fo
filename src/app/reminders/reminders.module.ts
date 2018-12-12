@@ -1,19 +1,16 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { ReminderViewComponent } from './components/reminder-view/reminder-view.component';
-import { RemindersRoutingModule } from './reminders-routing.module';
-import { SharedModule } from '../shared/shared.module';
+import { NgModule } from "@angular/core";
+import { ReminderViewComponent } from "./components/reminder-view/reminder-view.component";
+import { RemindersRoutingModule } from "./reminders-routing.module";
+import { SharedModule } from "../shared/shared.module";
 
 @NgModule({
   declarations: [
-    ReminderViewComponent 
+    ReminderViewComponent,
   ],
   imports: [
-    CommonModule,   // ngIf, ngFor, etc...
-    // FormsModule,    // ngModel for templates-driven forms, 
-    // MaterialModule, // Angular Material Design components
     SharedModule,   // custom shared components
-    RemindersRoutingModule,    
+    RemindersRoutingModule,
+    // MaterialModule, // Angular Material Design components
   ]
 })
 export class RemindersModule { }

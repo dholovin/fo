@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from "@angular/core";
-import { Location } from '@angular/common';
+import { Location } from "@angular/common";
 import { ActivatedRoute } from "@angular/router";
 import { FormBuilder, FormGroup, FormArray, FormControl, Validators } from "@angular/forms";
 import { COMMA, ENTER } from "@angular/cdk/keycodes";
@@ -8,7 +8,7 @@ import { Observable } from "rxjs";
 import { finalize } from "rxjs/operators";
 import { IPerson, IUpsertPerson } from "../../models";
 import { PeopleApiService } from "../../services";
-import { Globals } from "../../../shared/globals"; // comes from Shared NgModule
+import { Globals } from "../../../core/services"; // comes from Core NgModule
 
 @Component({
   selector: "fo-person-detail",
@@ -55,14 +55,14 @@ export class PersonDetailComponent implements OnInit {
 
     this.personId = +this.route.snapshot.paramMap.get("id");
     this.isCreateMode = !(!!this.personId);
-    // TODO: don't we want viewOnly mode/component?
+    // TODO: don"t we want viewOnly mode/component?
     // this.isViewMode = !!this.id;
 
     if (!this.isCreateMode) {
       // View / Edit
       this.loadPersonDetails(this.personId);
     } else {
-      // Create      
+      // Create
     }
   }
 
@@ -76,7 +76,7 @@ export class PersonDetailComponent implements OnInit {
 
     if ((value || "").trim()) {
       this.addAssociationToFormArray(value.trim());
-      this.personForm.markAsDirty(); // otherwise form didn't recognize it was changed - Save button was disabled
+      this.personForm.markAsDirty(); // otherwise form didn"t recognize it was changed - Save button was disabled
     }
 
     // Reset the input value
@@ -88,7 +88,7 @@ export class PersonDetailComponent implements OnInit {
   public removeAssociation(index: number): void {
     if (index >= 0) {
       this.associations.removeAt(index);
-      this.personForm.markAsDirty(); // otherwise form didn't recognize it was changed - Save button was disabled
+      this.personForm.markAsDirty(); // otherwise form didn"t recognize it was changed - Save button was disabled
     }
   }
 

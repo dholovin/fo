@@ -1,9 +1,9 @@
 import { BehaviorSubject } from "rxjs";
 import { Injectable } from "@angular/core";
 import { PersonNode, IPerson } from "../models";
-import { LoggerService } from '../../core/services';
+import { LoggerService } from "../../core/services";
 
-const NO_ASSOCIATION_GROUP_NAME: string = 'No Association';
+const NO_ASSOCIATION_GROUP_NAME: string = "No Association";
 
 @Injectable()
 export class PeopleTreeViewService {
@@ -54,7 +54,7 @@ export class PeopleTreeViewService {
             } else {
 
                 if (!unknownAssociationNode) {
-                    // Create new 'No Association' root node
+                    // Create new "No Association" root node
                     unknownAssociationNode = new PersonNode();
                     unknownAssociationNode.association = NO_ASSOCIATION_GROUP_NAME;
                     unknownAssociationNode.children = [];
@@ -74,7 +74,7 @@ export class PeopleTreeViewService {
             })
 
             if (unknownAssociationNode) {
-                accumulator.splice(0, 0, unknownAssociationNode); // add 'No Association' to the output
+                accumulator.splice(0, 0, unknownAssociationNode); // add "No Association" to the output
             }
 
             return accumulator;
@@ -105,7 +105,7 @@ export class PeopleTreeViewService {
     //         return accumulator.sort(); // Sort by Association Name descending
     //     }, []);
 
-    //     // 'No Association' group to be on top, if applicable
+    //     // "No Association" group to be on top, if applicable
     //     if (insertNoAssociationGroup) {
     //         uniqueAssociations.splice(0, 0, NO_ASSOCIATION_GROUP_NAME);
     //     }
@@ -145,7 +145,7 @@ export class PeopleTreeViewService {
     //         node.filename = key;
 
     //         if (value != null) {
-    //             if (typeof value === 'object') {
+    //             if (typeof value === "object") {
     //                 node.children = this.buildFileTree(value, level + 1);
     //             } else {
     //                 node.type = value;

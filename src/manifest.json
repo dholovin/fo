@@ -1,15 +1,18 @@
 {
   "name": "fo",
   "short_name": "fo",
+  "description": "[fo] PWA App",
   "theme_color": "#1976d2",
   "background_color": "#fafafa",
   "display": "standalone",
+  "orientation": "any",
   "scope": "/",
   "start_url": "/",
   "icons": [
     {
       "src": "favicon.ico",
-      "type": "image/x-icon"
+      "type": "image/x-icon",
+      "sizes": "16x16 32x32"
     },
     {
       "src": "assets/icons/icon-72x72.png",

@@ -2,8 +2,7 @@ import { Injectable } from "@angular/core";
 import { IPerson, PersonNode } from "../models";
 import { Observable, of } from "rxjs";
 import { delay } from "rxjs/operators";
-import { BaseApiService } from "../../shared/services";
-import { LoggerService } from "../../core/services";
+import { LoggerService, BaseApiService } from "../../core/services";
 
 const TIMEOUT: number = 1000; // to emulate network latency
 // TODO: replace stub with real values
@@ -81,7 +80,7 @@ export class PeopleApiService {
     constructor(private baseApiService: BaseApiService,
         private loggerService: LoggerService) {
 
-        // TODO: remove. Just for testing BaseApiService wrapper    
+        // TODO: remove. Just for testing BaseApiService wrapper
         baseApiService.get("https://www.techiediaries.com/api/data.json")
             .subscribe((response) => {
                 loggerService.log(response);
@@ -101,7 +100,7 @@ export class PeopleApiService {
 
     public deletePerson(id: number): Observable<IPerson[]> {
         let personIndex: number = PEOPLE.findIndex(person => person.id === id);
-        if (personIndex != -1) {
+        if (personIndex !== -1) {
             PEOPLE.splice(personIndex, 1);
         }
 

@@ -79,12 +79,12 @@ export class PeopleTreeViewComponent implements OnInit, OnDestroy {
         }))
         .subscribe((people: IPerson[]) => {
           this.people = people;
-          
+
           // rebuild the tree
           this.peopleTreeViewService.buildPersonTree(this.people);
         }, (error: any) => {
           // TODO: handle errors
-        })
+        });
     }
   }
 }
