@@ -2,13 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Fo.Common.Controllers;
 using Microsoft.AspNetCore.Mvc;
 
-namespace fo.Api.Controllers
+namespace Fo.Api.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class ValuesController : ControllerBase
+    public class ValuesController  : ApiController
     {
         // GET api/values
         [HttpGet]
