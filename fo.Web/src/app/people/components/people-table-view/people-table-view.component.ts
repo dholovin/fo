@@ -3,8 +3,9 @@ import { HostListener } from "@angular/core";
 import { MatTableDataSource, MatSort } from "@angular/material";
 import { finalize } from "rxjs/operators";
 import { IPerson } from "../../models";
-import { PeopleApiService } from "../../services";
+import { PeopleApiService, PeopleFilterStateService } from "../../services";
 import { LoggerService } from "../../../core/services";
+import { Router, NavigationStart } from "@angular/router";
 
 @Component({
   selector: "fo-people-table-view",
@@ -14,6 +15,7 @@ import { LoggerService } from "../../../core/services";
 export class PeopleTableViewComponent implements OnInit {
   public people: IPerson[];
   public isBusy: boolean = false;
+  public filterString: string;
 
   @ViewChild(MatSort) sort: MatSort;
   public peopleDataSource: MatTableDataSource<IPerson>;
@@ -29,9 +31,22 @@ export class PeopleTableViewComponent implements OnInit {
 
   constructor(
     private loggerService: LoggerService,
-    private peopleApiService: PeopleApiService) { }
+    private peopleApiService: PeopleApiService,
+    private router: Router,
+    private peopleFilterStateService: PeopleFilterStateService) { }
 
   ngOnInit() {
+    this.router.events
+      .subscribe((event) => {
+        if (event instanceof NavigationStart) {
+          // saving people filter parameters when navigating away
+          if (this.peopleDataSource.filter) {
+          // if (this.filterString) {
+            this.peopleFilterStateService.savePeopleFilterState(this.peopleDataSource.filter);
+          }
+        }
+      });
+
     this.isBusy = true;
     this.peopleApiService.getPeople()
       .pipe(finalize(() => {
@@ -44,10 +59,20 @@ export class PeopleTableViewComponent implements OnInit {
         this.peopleDataSource = new MatTableDataSource(this.people);
         this.peopleDataSource.sort = this.sort;
         this.getDisplayedColumns();
+
+
+        // this.peopleFilterStateService.filterString
+        //   .subscribe((filterString: string) => {
+        //     this.filterString = filterString;
+        //     this.applyFilter(filterString);
+        //   });
       }, (error: any) => {
         // TODO: handle errors
-      })
+      });
+  }
 
+  public filterChanged(newValue: string) {
+    this.peopleFilterStateService.savePeopleFilterState(newValue);
   }
 
   public applyFilter(filterValue: string) {
@@ -80,7 +105,7 @@ export class PeopleTableViewComponent implements OnInit {
           this.peopleDataSource = new MatTableDataSource(this.people);
         }, (error: any) => {
           // TODO: handle errors
-        })
+        });
     }
   }
 }

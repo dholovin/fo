@@ -3,7 +3,7 @@ import { SharedModule } from "../shared/shared.module";
 import { MaterialModule } from "../material/material.module";
 import { PeopleRoutingModule } from "./people-routing.module";
 import { PeopleComponent, PeopleTableViewComponent, PeopleTreeViewComponent } from "./components";
-import { PeopleApiService } from "./services";
+import { PeopleApiService, PeopleFilterStateService } from "./services";
 import { PersonDetailComponent } from "./components/person-detail/person-detail.component";
 
 @NgModule({
@@ -15,6 +15,7 @@ import { PersonDetailComponent } from "./components/person-detail/person-detail.
   ],
   providers: [
     PeopleApiService,
+    PeopleFilterStateService,
   ],
   imports: [
     SharedModule,   // custom shared components
