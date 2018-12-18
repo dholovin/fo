@@ -22,7 +22,8 @@ namespace Fo.ServiceContracts.Services
         public async Task<IEnumerable<Person>> Get(CancellationToken cancellationToken)
         {
             var peopleEntities = await _peopleRepository.Get(cancellationToken);
-            return _mapper.Map<IEnumerable<Person>>(peopleEntities);
+            var peopleModels = _mapper.Map<IEnumerable<Person>>(peopleEntities);
+            return peopleModels;
         }
 
         // public async Task<IEnumerable<Person>> Get(int id, CancellationToken cancellationToken)

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
-using Fo.ServiceContracts.Mapping;
+using Fo.Ioc;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -42,15 +42,7 @@ namespace fo.Api
             // DI per feature
             services.WireupPeople();
 
-            // Auto Mapper Configurations
-            var mappingConfig = new MapperConfiguration(mc =>
-            {
-                mc.AddProfile(new PeopleMappingProfile());
-            });
-            mappingConfig.AssertConfigurationIsValid();
-            IMapper mapper = mappingConfig.CreateMapper();
             services.AddAutoMapper();
-            // services.AddSingleton(mapper);
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
