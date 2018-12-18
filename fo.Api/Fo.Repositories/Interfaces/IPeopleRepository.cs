@@ -1,11 +1,11 @@
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using Fo.ServiceContracts.Models;
+using Fo.Repositories.Entities;
 
-namespace Fo.ServiceContracts.Interfaces
+namespace Fo.Repositories.Interfaces
 {
-    public interface IPeopleService
+    public interface IPeopleRepository
     {
         Task<IEnumerable<Person>> Get(CancellationToken cancellationToken);
         // Task<IEnumerable<Person>> Get(int id, CancellationToken cancellationToken);

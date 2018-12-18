@@ -23,14 +23,15 @@ namespace Fo.Api.Controllers
         [HttpGet]
         public async Task<IEnumerable<Person>> Get(CancellationToken cancellationToken)
         {
-            return await _peopleService.Get(cancellationToken); // new string[] { "value1", "value2" };
+            return await _peopleService.Get(cancellationToken);
         }
 
         // GET api/people/5
         [HttpGet("{id}")]
         public async Task<IEnumerable<Person>> Get(int id, CancellationToken cancellationToken)
         {
-            return await _peopleService.Get(id, cancellationToken);
+            throw new System.NotImplementedException();
+            // return await _peopleService.Get(id, cancellationToken);
         }
 
         // PUT api/people
@@ -38,7 +39,8 @@ namespace Fo.Api.Controllers
         public async Task<IEnumerable<Person>> Create([FromBody] UpsertPerson person,
         CancellationToken cancellationToken)
         {
-            return await _peopleService.Create(person, cancellationToken);
+            throw new System.NotImplementedException();
+            // return await _peopleService.Create(person, cancellationToken);
         }
 
 
@@ -47,14 +49,16 @@ namespace Fo.Api.Controllers
         public async Task<IEnumerable<Person>> Update(int id, [FromBody] UpsertPerson person,
         CancellationToken cancellationToken)
         {
-            return await _peopleService.Update(id, person, cancellationToken);
+            throw new System.NotImplementedException();
+            // return await _peopleService.Update(id, person, cancellationToken);
         }
 
         // DELETE api/people/5
         [HttpDelete("{id}")]
         public async Task<IEnumerable<Person>> Delete(int id, CancellationToken cancellationToken)
         {
-            return await _peopleService.Delete(id, cancellationToken);
+            throw new System.NotImplementedException();
+            // return await _peopleService.Delete(id, cancellationToken);
         }
     }
 }
