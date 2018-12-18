@@ -1,19 +1,24 @@
 import { Injectable } from "@angular/core";
 import { BehaviorSubject } from "rxjs";
+import { PeopleViewMode, IPeopleFilterState } from "../models";
 
 declare const window: any;
 
 @Injectable()
 export class PeopleFilterStateService {
-  private $filterStringChanged = new BehaviorSubject<string>("");
+  private $filterStateChanged = new BehaviorSubject<IPeopleFilterState>(
+    {
+      filterString: "",
+      viewMode: PeopleViewMode.Table
+    });
 
-  get filterString() {
-    return this.$filterStringChanged.asObservable();
+  get filterState() {
+    return this.$filterStateChanged.asObservable();
   }
 
-  constructor() {  }
+  constructor() { }
 
-  public savePeopleFilterState(filterValue: string) {
-    this.$filterStringChanged.next(filterValue);
+  public savePeopleFilterState(filterState: IPeopleFilterState) {
+    this.$filterStateChanged.next(filterState);
   }
 }

@@ -1,11 +1,13 @@
 import { Component, OnInit, Input, OnDestroy } from "@angular/core";
 import { FlatTreeControl } from "@angular/cdk/tree";
 import { MatTreeFlatDataSource, MatTreeFlattener } from "@angular/material/tree";
-import { Observable, of as observableOf } from "rxjs";
+import { Observable, of as observableOf, Subscription } from "rxjs";
 import { finalize } from "rxjs/operators";
-import { IPerson, PersonFlatNode, PersonNode } from "../../models";
-import { PeopleTreeViewService, PeopleApiService } from "../../services";
+import { IPerson, PersonFlatNode, PersonNode, IPeopleFilterState, PeopleViewMode } from "../../models";
+import { PeopleTreeViewService, PeopleApiService, PeopleFilterStateService } from "../../services";
 import { LoggerService } from "../../../core/services";
+import { Router } from "@angular/router";
+import { NavigationStart } from "@angular/router";
 
 @Component({
   selector: "fo-people-tree-view",
@@ -14,12 +16,15 @@ import { LoggerService } from "../../../core/services";
   providers: [PeopleTreeViewService],
 })
 export class PeopleTreeViewComponent implements OnInit, OnDestroy {
+  @Input() public filterString: string; // TODO: could be a model if there were more filter params
   public people: IPerson[];
   public isBusy: boolean = false;
 
   public treeControl: FlatTreeControl<PersonFlatNode>;
   public treeFlattener: MatTreeFlattener<PersonNode, PersonFlatNode>;
   public dataSource: MatTreeFlatDataSource<PersonNode, PersonFlatNode>;
+
+  private subscriptions: Subscription[] = [];
 
   private _getLevel = (node: PersonFlatNode) => node.level;
   private _isExpandable = (node: PersonFlatNode) => node.expandable;
@@ -28,7 +33,9 @@ export class PeopleTreeViewComponent implements OnInit, OnDestroy {
   constructor(
     private loggerService: LoggerService,
     private peopleTreeViewService: PeopleTreeViewService,
-    private peopleApiService: PeopleApiService) {
+    private peopleApiService: PeopleApiService,
+    private router: Router,
+    private peopleFilterStateService: PeopleFilterStateService) {
 
     this.treeFlattener = new MatTreeFlattener(this.transformer, this._getLevel, this._isExpandable, this._getChildren);
     this.treeControl = new FlatTreeControl<PersonFlatNode>(this._getLevel, this._isExpandable);
@@ -36,8 +43,23 @@ export class PeopleTreeViewComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    // Save people filter parameters when navigating away
+    this.subscriptions.push(this.router.events
+      .subscribe((event) => {
+        if (event instanceof NavigationStart) {
+          const peopleFilterState: IPeopleFilterState = {
+            filterString: this.filterString,
+            viewMode: PeopleViewMode.Tree,
+          };
+
+          this.peopleFilterStateService.savePeopleFilterState(peopleFilterState);
+        }
+      }));
+
     // subscribe to data source changes
-    this.peopleTreeViewService.$dataChange.subscribe(data => this.dataSource.data = data);
+    this.subscriptions.push(
+      this.peopleTreeViewService.$dataChange.subscribe(data => this.dataSource.data = data)
+    );
 
     this.isBusy = true;
     this.peopleApiService.getPeople()
@@ -49,13 +71,18 @@ export class PeopleTreeViewComponent implements OnInit, OnDestroy {
 
         // rebuild the tree
         this.peopleTreeViewService.buildPersonTree(this.people);
+
+        // if restored filter string - force applyFilter() 
+        if (this.filterString) {
+          this.applyFilter(this.filterString);
+        }
       }, (error: any) => {
         // TODO: handle errors
       })
   }
 
   ngOnDestroy(): void {
-    this.peopleTreeViewService.$dataChange.unsubscribe();
+    this.subscriptions.forEach(subscription => subscription.unsubscribe())
   }
 
   public transformer = (node: PersonNode, level: number) => {

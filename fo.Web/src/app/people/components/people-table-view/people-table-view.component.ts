@@ -2,20 +2,22 @@ import { Component, OnInit, Input, ViewChild } from "@angular/core";
 import { HostListener } from "@angular/core";
 import { MatTableDataSource, MatSort } from "@angular/material";
 import { finalize } from "rxjs/operators";
-import { IPerson } from "../../models";
+import { IPerson, IPeopleFilterState, PeopleViewMode } from "../../models";
 import { PeopleApiService, PeopleFilterStateService } from "../../services";
 import { LoggerService } from "../../../core/services";
 import { Router, NavigationStart } from "@angular/router";
+import { Subscription } from "rxjs";
+import { OnDestroy } from "@angular/core";
 
 @Component({
   selector: "fo-people-table-view",
   templateUrl: "./people-table-view.component.html",
   styleUrls: ["./people-table-view.component.scss"]
 })
-export class PeopleTableViewComponent implements OnInit {
+export class PeopleTableViewComponent implements OnInit, OnDestroy {
+  @Input() public filterString: string; // TODO: could be a model if there were more filter params
   public people: IPerson[];
   public isBusy: boolean = false;
-  public filterString: string;
 
   @ViewChild(MatSort) sort: MatSort;
   public peopleDataSource: MatTableDataSource<IPerson>;
@@ -28,6 +30,7 @@ export class PeopleTableViewComponent implements OnInit {
   ];
 
   private isMobile: boolean = false;
+  private subscriptions: Subscription[] = [];
 
   constructor(
     private loggerService: LoggerService,
@@ -36,16 +39,18 @@ export class PeopleTableViewComponent implements OnInit {
     private peopleFilterStateService: PeopleFilterStateService) { }
 
   ngOnInit() {
-
     // Save people filter parameters when navigating away
-    this.router.events
+    this.subscriptions.push(this.router.events
       .subscribe((event) => {
         if (event instanceof NavigationStart) {
-          if (this.filterString) {
-            this.peopleFilterStateService.savePeopleFilterState(this.filterString);
-          }
+          const peopleFilterState: IPeopleFilterState = {
+            filterString: this.filterString,
+            viewMode: PeopleViewMode.Table,
+          };
+
+          this.peopleFilterStateService.savePeopleFilterState(peopleFilterState);
         }
-      });
+      }));
 
     // Load people data
     this.isBusy = true;
@@ -61,15 +66,17 @@ export class PeopleTableViewComponent implements OnInit {
         this.peopleDataSource.sort = this.sort;
         this.getDisplayedColumns();
 
-        // Restore people filter value when loading the page and filter value existed
-        this.peopleFilterStateService.filterString
-          .subscribe((filterString: string) => {
-            this.filterString = filterString;
-            this.applyFilter(filterString;
-          });
+        // if restored filter string - force applyFilter() 
+        if (this.filterString) {
+          this.applyFilter(this.filterString);
+        }
       }, (error: any) => {
         // TODO: handle errors
       });
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach(subscription => subscription.unsubscribe())
   }
 
   public applyFilter(filterValue: string) {

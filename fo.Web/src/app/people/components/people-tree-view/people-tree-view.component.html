@@ -11,7 +11,7 @@
 
 <div>
   <mat-form-field style="width: 100%">
-    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter" [(ngModel)]="filterString">
   </mat-form-field>
 
   <mat-tree [dataSource]="dataSource" [treeControl]="treeControl" class="mat-elevation-z8">
