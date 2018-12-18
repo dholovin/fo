@@ -36,17 +36,18 @@ export class PeopleTableViewComponent implements OnInit {
     private peopleFilterStateService: PeopleFilterStateService) { }
 
   ngOnInit() {
+
+    // Save people filter parameters when navigating away
     this.router.events
       .subscribe((event) => {
         if (event instanceof NavigationStart) {
-          // saving people filter parameters when navigating away
-          if (this.peopleDataSource.filter) {
-          // if (this.filterString) {
-            this.peopleFilterStateService.savePeopleFilterState(this.peopleDataSource.filter);
+          if (this.filterString) {
+            this.peopleFilterStateService.savePeopleFilterState(this.filterString);
           }
         }
       });
 
+    // Load people data
     this.isBusy = true;
     this.peopleApiService.getPeople()
       .pipe(finalize(() => {
@@ -60,19 +61,15 @@ export class PeopleTableViewComponent implements OnInit {
         this.peopleDataSource.sort = this.sort;
         this.getDisplayedColumns();
 
-
-        // this.peopleFilterStateService.filterString
-        //   .subscribe((filterString: string) => {
-        //     this.filterString = filterString;
-        //     this.applyFilter(filterString);
-        //   });
+        // Restore people filter value when loading the page and filter value existed
+        this.peopleFilterStateService.filterString
+          .subscribe((filterString: string) => {
+            this.filterString = filterString;
+            this.applyFilter(filterString;
+          });
       }, (error: any) => {
         // TODO: handle errors
       });
-  }
-
-  public filterChanged(newValue: string) {
-    this.peopleFilterStateService.savePeopleFilterState(newValue);
   }
 
   public applyFilter(filterValue: string) {
