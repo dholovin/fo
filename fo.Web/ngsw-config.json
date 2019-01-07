@@ -9,9 +9,9 @@
       ],
       "cacheConfig": {
         "strategy": "freshness",
-        "timeout": "10s", // 'timeout' is considered for 'freshness' statagy
-        "maxAge": "3d",   // 'maxAge' is considered for 'performance' strategy
-        "maxSize": 100    // max number of entries or responses in the cache
+        "timeout": "10s",
+        "maxAge": "3d",
+        "maxSize": 100
       }
     }
   ],
