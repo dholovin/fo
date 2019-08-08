@@ -3,7 +3,7 @@ import { Location } from "@angular/common";
 import { ActivatedRoute } from "@angular/router";
 import { FormBuilder, FormGroup, FormArray, FormControl, Validators } from "@angular/forms";
 import { COMMA, ENTER } from "@angular/cdk/keycodes";
-import { MatChipInputEvent } from "@angular/material";
+import { MatChipInputEvent } from "@angular/material/chips";
 import { Observable } from "rxjs";
 import { finalize } from "rxjs/operators";
 import { IPerson, IUpsertPerson } from "../../models";

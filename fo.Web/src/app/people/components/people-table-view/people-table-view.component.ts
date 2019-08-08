@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, ViewChild } from "@angular/core";
 import { HostListener } from "@angular/core";
-import { MatTableDataSource, MatSort } from "@angular/material";
+import { MatSort } from "@angular/material/sort";
+import { MatTableDataSource } from "@angular/material/table";
 import { finalize } from "rxjs/operators";
 import { IPerson, IPeopleFilterState, PeopleViewMode } from "../../models";
 import { PeopleApiService, PeopleFilterStateService } from "../../services";
