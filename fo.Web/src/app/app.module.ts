@@ -12,7 +12,7 @@ import { environment } from "../environments/environment";
   ],
   imports: [
     BrowserModule,
-    CoreModule,
+    CoreModule, // import HttpClientModule after BrowserModule.
     ServiceWorkerModule.register("ngsw-worker.js", { enabled: environment.production }),
   ],
   providers: [],
