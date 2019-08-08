@@ -19,7 +19,7 @@ export class PeopleTableViewComponent implements OnInit, OnDestroy {
   public people: IPerson[];
   public isBusy: boolean = false;
 
-  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
   public peopleDataSource: MatTableDataSource<IPerson>;
   public columnDefinitions = [
     { def: "name", showMobile: true },
