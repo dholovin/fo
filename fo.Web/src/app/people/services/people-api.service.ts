@@ -76,7 +76,6 @@ let PEOPLE = [
 
 @Injectable()
 export class PeopleApiService {
-
     constructor(private baseApiService: BaseApiService,
         private loggerService: LoggerService) {
 
@@ -87,6 +86,8 @@ export class PeopleApiService {
             }, (error: any) => {
                 var err = error;
             });
+
+       
     }
 
     public getPeople(): Observable<IPerson[]> {

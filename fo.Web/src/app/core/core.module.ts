@@ -12,7 +12,7 @@ import { CoreRoutingModule } from "./core-routing.module";
 import { LoggerService, BaseApiService, Globals, OnlineOfflineService } from "./services";
 import { WelcomeComponent, NotFoundComponent } from "./components";
 
-// Angular Material Anumation module
+// Angular Material Animation module
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 // Custom Angular Material UI Components module
 import { MaterialModule } from "../material/material.module";
